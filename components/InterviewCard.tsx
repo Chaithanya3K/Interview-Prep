@@ -1,6 +1,5 @@
 import React from 'react'
 import dayjs from 'dayjs';
-import { no } from 'zod/locales';
 import Image from 'next/image';
 import {getRandomInterviewCover} from '@/lib/utils';
 import Link from 'next/link';

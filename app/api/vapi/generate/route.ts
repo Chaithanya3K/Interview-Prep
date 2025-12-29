@@ -258,6 +258,95 @@
 //   return Response.json({ success: true, data: "Thank you!" }, { status: 200 });
 // }
 
+
+
+// import { NextResponse } from "next/server";
+// import OpenAI from "openai";
+
+// import { db } from "@/firebase/admin";
+// import { getRandomInterviewCover } from "@/lib/utils";
+
+// const openai = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
+
+// export async function POST(request: Request) {
+//   const { type, role, level, techstack, amount, userid } =
+//     await request.json();
+
+//   try {
+//     const prompt = `
+// Prepare questions for a job interview.
+// The job role is ${role}.
+// The job experience level is ${level}.
+// The tech stack used in the job is: ${techstack}.
+// The focus between behavioural and technical questions should lean towards: ${type}.
+// The amount of questions required is: ${amount}.
+// Please return only the questions, without any additional text.
+// The questions are going to be read by a voice assistant so do not use "/" or "*" or any other special characters.
+// Return the questions formatted like this:
+// ["Question 1", "Question 2", "Question 3"]
+// `;
+
+//     const completion = await openai.chat.completions.create({
+//       model: "gpt-4o-mini", // works with free credits
+//       temperature: 0,
+//       messages: [
+//         {
+//           role: "user",
+//           content: prompt,
+//         },
+//       ],
+//     });
+
+//     const text = completion.choices[0].message.content || "[]";
+
+//     let questions: string[];
+
+//     try {
+//       questions = JSON.parse(text);
+//     } catch {
+//       questions = text
+//         .split("\n")
+//         .map((q) => q.replace(/^\d+[\).\s]*/, "").trim())
+//         .filter(Boolean);
+//     }
+
+//     const interview = {
+//       role: role,
+//       type: type,
+//       level: level,
+//       techstack: techstack.split(","),
+//       questions: questions,
+//       userId: userid,
+//       finalized: true,
+//       coverImage: getRandomInterviewCover(),
+//       createdAt: new Date().toISOString(),
+//     };
+
+//     await db.collection("interviews").add(interview);
+
+//     return NextResponse.json(
+//       { success: true },
+//       { status: 200 }
+//     );
+//   } catch (error: any) {
+//     console.error("Error:", error);
+//     return NextResponse.json(
+//       { success: false, error: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+// export async function GET() {
+//   return NextResponse.json(
+//     { success: true, data: "Thank you!" },
+//     { status: 200 }
+//   );
+// }
+
+
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
